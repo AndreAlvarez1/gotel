@@ -4,3 +4,28 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+
+@import '../theme/fonts';
+
+
+*{
+   font-family: LatoBlack; 
+}
+
+h4{
+    font-family: LatoLight; 
+}
+
+p{
+    font-family: LatoRegular;
+}
+
+ion-content{
+    --background: url('src/assets/pattern.png') repeat;
+}
+
+ion-header{
+    --background-color:#333637 !important;
+}
+
+

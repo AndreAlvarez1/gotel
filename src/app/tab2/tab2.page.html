@@ -1,9 +1,74 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="dark">
+    
+        <ion-title>Gotel - Piezas</ion-title>
+        <ion-buttons slot="primary">
+          <ion-icon slot="end" name="arrow-round-back"></ion-icon>
+          <ion-button [routerLink]="['']" routerLinkActive="router-link-active"  >
+            Salir
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+
+<ion-content>
+
+<ion-row class="animated fadeIn">
+  <ion-col size="12" class="encabezado">
+    <h1>Piezas</h1>
+    <button (click)="mostrar()">mostrar</button>
+  </ion-col>
+  
+</ion-row>
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+
+    <ion-list class="animated fadeIn">
+        <ion-item *ngFor="let mesa of mesas" 
+                  (click)="abrirMesa(mesa.CODIGO, mesa.ESTADO)"
+                  [ngSwitch]=mesa.ESTADO>
+          <ion-label>{{mesa.CODIGO}}</ion-label>
+          
+          <ion-chip *ngSwitchCase="'1'" 
+                    color="success">
+              <ion-icon name="checkmark" color="success"></ion-icon>
+              <ion-label color="success">Libre</ion-label>
+          </ion-chip>
+
+
+          <ion-chip *ngSwitchCase="'2'" 
+                     color="danger">
+            <ion-icon name="bed" color="danger"></ion-icon>
+            <ion-label color="danger">Ocupada</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngSwitchCase="'3'" 
+                     color="warning">
+            <ion-icon name="search" color="warning"></ion-icon>
+            <ion-label color="warning">Inspeccionando</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngSwitchCase="'4'" 
+                    color="primary">
+            <ion-icon name="water" color="primary"></ion-icon>
+            <ion-label color="primary">Aseo</ion-label>
+          </ion-chip>
+
+
+         </ion-item>
+      </ion-list>
+
+ 
+
+
+
+
+
+
+
+
+
+
+</ion-content>
+
+

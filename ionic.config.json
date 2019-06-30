@@ -1,5 +1,7 @@
 {
   "name": "gotel",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
