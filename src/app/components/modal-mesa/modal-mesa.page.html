@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle Actividad</ion-title>
+    <ion-button  class="btn btn-outline-primary" (click)="dismiss()">X</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+<ion-row>
+  <ion-col size="12" class="ion-text-center">
+    <h1>Pieza: {{mesa}}</h1>
+  </ion-col>
+
+  <ion-col size="12" class="ion-text-center">
+      <p>{{fecha}}</p>
+  </ion-col>
+  <ion-col size="12" class="ion-text-center">
+      <p>{{usuario}}</p>
+  </ion-col>    
+  <ion-col size="12" class="ion-text-center nomargin">
+      <ion-item [ngSwitch]=estado>
+          {{hora}}
+        <ion-chip *ngSwitchCase="'1'" 
+                  color="success"
+                  slot="end">
+            <ion-icon name="checkmark" color="success"></ion-icon>
+            <ion-label  color="success">Libre</ion-label>
+          </ion-chip>
+
+        <ion-chip *ngSwitchCase="'2'" 
+                  color="danger"
+                  slot="end">
+          <ion-icon name="bed" color="danger"></ion-icon>
+          <ion-label color="danger">Ocupada</ion-label>
+        </ion-chip>
+
+        <ion-chip *ngSwitchCase="'3'" 
+                  color="warning"
+                  slot="end">
+          <ion-icon name="search" color="warning"></ion-icon>
+          <ion-label color="warning">Inspeccionando</ion-label>
+        </ion-chip>
+
+        <ion-chip *ngSwitchCase="'4'" 
+                color="primary"
+                slot="end">
+        <ion-icon name="water" color="primary"></ion-icon>
+        <ion-label color="primary">Aseo</ion-label>
+      </ion-chip> 
+  </ion-item>
+</ion-col>
+  
+  
+ 
+
+</ion-row>
+</ion-content>

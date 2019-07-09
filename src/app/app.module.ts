@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ModalMesaPageModule } from "./components/modal-mesa/modal-mesa.module";
 
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -19,14 +20,14 @@ import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
+  imports: [BrowserModule,
             IonicModule.forRoot(), 
             AppRoutingModule,
             HttpClientModule,
-            IonicStorageModule.forRoot()
-          
+            IonicStorageModule.forRoot(),
+            ModalMesaPageModule
+            
           ],
-
   providers: [
     StatusBar,
     SplashScreen,

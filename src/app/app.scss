@@ -29,3 +29,37 @@ ion-header{
 }
 
 
+.bg-white{
+    background-color:white;
+
+}
+
+
+.encabezado{
+    background-color:#F15A24;
+    color:white;
+}
+
+h1{
+  margin:10px;
+  font-size: 3em;  
+}
+
+h5{
+  font-size:0.9em;
+  padding-left:10px;
+}
+
+.cabecera{
+  background-color: white;
+  border-bottom:2px solid grey;
+}
+
+.codigo{
+    max-width:50px;
+}
+
+.nombre{
+  padding-left: 10px;
+  font-size: 0.7em;
+}

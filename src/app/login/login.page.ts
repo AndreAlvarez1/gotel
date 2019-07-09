@@ -12,31 +12,36 @@ import { MemoriaService } from '../services/memoria.service';
 })
 export class LoginPage implements OnInit {
 
-  public usuarios:any[]=[];
-  public user:any;
-
+  public usuarios = [];
+  public user     = undefined;
+  public url      = undefined;
 
   constructor(private router:Router,
               public alertController:AlertController,
               private conector:ConectorService,
               public memoria:MemoriaService ) { 
-                this.traerUsuarios()
+
+              
+                this.memoria.leerDato('gotel_usuario')
+                .then( dato => this.user = dato );
+            
   }
 
   ngOnInit() {
-    this.user = this.memoria.leerDato("usuario")
+  this.traerUsuarios()  
   }
 
   checkPass(pass){
-    console.log("chequeo el pass",pass)
-     const user = this.usuarios.find( user => user.CLAVE === pass)
-     console.log(user)
-     if(user){
-        this.memoria.guardarDato("usuario",user)
-        this.router.navigateByUrl('/tabs/tab1');
-      }else{
-        this.alertaError()
-      }
+    // console.log('chequeo el pass', pass);
+    const user = this.usuarios.find( (user: any) => user.CLAVE === pass );
+    // console.log(user);
+    if (user) {
+      // console.log( 'guardando...', user );
+      this.memoria.guardarDato('gotel_usuario', user);
+      this.router.navigateByUrl('/tabs/tab1');
+    } else {
+      this.alertaError();
+    }
   }
 
   
@@ -53,10 +58,19 @@ export class LoginPage implements OnInit {
           //datos.datos[i].NOMBRE = datos.datos[i].NOMBRE.replace(/\s/g, '');
         }
       return this.usuarios=val["datos"];
+
     })
   }
 
-  
+
+  config(){
+    console.log("voy a config");
+    this.router.navigateByUrl('/config');
+
+  }
+
+
+
 
   async alertaError() {
     const alert = await this.alertController.create({

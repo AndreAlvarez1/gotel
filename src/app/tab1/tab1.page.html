@@ -12,10 +12,15 @@
       </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <h1 class="animated fadeIn">Bienvenido</h1>
-   <!-- <h2>{{ this.user.NOMBRE | titlecase }}</h2>-->
-    <hr>
-    <ion-button expand="block" (click)="irPiezas()">Tomar Pieza</ion-button>
+<ion-content >
+  <ion-row class="container">
+    <ion-col>
+        <h1 class="animated fadeIn">Hola</h1>
+        <h2 *ngIf=" user ">{{ user.NOMBRE | titlecase }}</h2>
+        <hr>
+        <ion-button expand="block" (click)="irPiezas()">Tomar Pieza</ion-button>
+    </ion-col>
+  </ion-row>
+    
 
 </ion-content>
