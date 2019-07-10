@@ -10,6 +10,12 @@ export class ModalMesaPage implements OnInit {
 
   constructor(public modalCtrl:ModalController) { }
 
+  mesa:    "";
+  usuario: "";
+  estado:  "";
+  fecha:   "";
+  hora:    "";
+
   ngOnInit() {
   }
 
