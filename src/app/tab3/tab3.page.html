@@ -21,27 +21,16 @@
           refreshingSpinner="circles"
           refreshingText="Actualizando estado Piezas...">
         </ion-refresher-content>
-      </ion-refresher>
+    </ion-refresher>
     
     <ion-row class="animated fadeIn">
       <ion-col size="12" class="encabezado">
         <h1>Actividades</h1>
-         <ion-button (click)="presentModal()">
-          Modal
-        </ion-button>
       </ion-col>
     </ion-row>
 
-
-
-
-
-
-
-
     <ion-row class="bg-white">
       <ion-col size="12">
-
         <ion-item>
           <ion-label>Escoger Fecha</ion-label>
           <ion-datetime displayFormat="DD MM YY" 
@@ -51,19 +40,15 @@
                         (click)= "mostrar = true">
           </ion-datetime>
         </ion-item>
-      
-        <ion-button *ngIf="mostrar"
+        <ion-button *ngIf=" mostrar "
                     expand="block" 
                     fill="solid"
                     class="animated fadeIn" 
                     (click)="buscarFecha(fechaSelect)">
                     Buscar historial
         </ion-button>
-
-      
       </ion-col>
     </ion-row>
-
 
     <ion-row class="cabecera"> 
         <ion-col size="2">
@@ -74,15 +59,15 @@
         </ion-col>
         <ion-col size="6">
             <h5>Estado</h5>
-          </ion-col>
-     </ion-row>
+        </ion-col>
+    </ion-row>
   
     <ion-row>
       <ion-col size="12">
           <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
           <ion-list class="animated fadeIn">
               <ion-item *ngFor="let actividad of actividades"
-                        (click)="presentModal(actividad.MESA,actividad.NOMBRE,actividad.ESTADO,actividad.FECHA,actividad.HORA_FIN)"
+                        (click)="presentModal(actividad)"
                         [ngSwitch]=actividad.ESTADO> 
 
                 <ion-label class="codigo">{{actividad.MESA}}</ion-label> | 
@@ -117,7 +102,5 @@
           </ion-list>    
       </ion-col>
     </ion-row>
-
-
 
 </ion-content>

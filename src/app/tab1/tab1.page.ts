@@ -10,28 +10,18 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page implements OnInit {
 
-  public user:any
-  
+  user = undefined;
 
-  constructor(public memoria:MemoriaService,
-              private router:Router) {
- 
-  }   
+  constructor(public memoria: MemoriaService,
+              private router: Router) {}
 
-
-  ngOnInit() { 
-    this.memoria.traerDato( 'gotel_usuario' ).then( data => this.user = data );
+  ngOnInit() {
+    // último usuario
+    this.memoria.leerDato('gotel_usuario').then( dato => this.user = dato );
   }
 
-  irPiezas(){
+  irPiezas() {
     this.router.navigateByUrl('/tabs/tab2');
   }
 
- 
-
-
-   
-
-
 }
-

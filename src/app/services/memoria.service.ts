@@ -16,9 +16,12 @@ export class MemoriaService {
     this.storage.set( nombre, valor );
   }
 
+  // la pareja  async+await permiten "detener la ejecucion" hasta que el datos aea rescatado
+  // de esta forma la constante "item" no se entregará (await) para retornar hasta que sea obtenida del storage
+  // cuando es obtenida, el await suelta el dato y return devuelve
   async leerDato( dato: any ) {
-    const items = await this.storage.get( dato );
-    console.log( 'itemes rescatados->', items );
+    const item = await this.storage.get( dato );
+    return item;
   }
 
   traerDato( campo: any ) {
