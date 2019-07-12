@@ -58,12 +58,14 @@ export class Tab2Page implements OnInit {
     if ( estado === '1') {
       // this.piezaLibre()
       this.libre( codigo );
-    } else if ( estado === '2' ) {
-      this.ocupado( codigo );
     } else if ( estado === '3' ) {
-      this.inspeccion( codigo );
+      this.ocupado( codigo );
     } else if ( estado === '4' ) {
-      this.aseo( codigo );
+      this.consumir( codigo );
+    } else if ( estado === '2' ) {
+      this.inspeccion( codigo );
+    } else if ( estado === '5' ) {
+      this.aseo( codigo ); 
     } else {
       console.log(codigo);
     }
@@ -140,7 +142,7 @@ export class Tab2Page implements OnInit {
         {
           text: 'Ocupar',
           handler: () => {
-            this.cambiarEstado( codigo, '2', this.user.CODIGO );
+            this.cambiarEstado( codigo, '3', this.user.CODIGO );
           }
         }
       ]
@@ -158,13 +160,37 @@ export class Tab2Page implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            this.cambiarEstado( codigo, '2', this.user.CODIGO );
+            this.cambiarEstado( codigo, '3', this.user.CODIGO );
+          }
+        },
+        {
+          text: 'Consumir',
+          handler: () => {
+            this.cambiarEstado( codigo, '4', this.user.CODIGO );
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async consumir( codigo: string ) {
+    const alert = await this.alertController.create({
+      header: 'Pieza' + ' ' + codigo,
+      message: 'Consumiendo',
+      buttons: [
+        {
+          text: 'Pendiente',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.cambiarEstado( codigo, '4', this.user.CODIGO );
           }
         },
         {
           text: 'Inspeccionar',
           handler: () => {
-            this.cambiarEstado( codigo, '3', this.user.CODIGO );
+            this.cambiarEstado( codigo, '2', this.user.CODIGO );
           }
         }
       ]
@@ -182,13 +208,13 @@ export class Tab2Page implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            this.cambiarEstado( codigo, '3', this.user.CODIGO );
+            this.cambiarEstado( codigo, '2', this.user.CODIGO );
           }
         },
         {
           text: 'Lista',
           handler: () => {
-            this.cambiarEstado( codigo, '4', this.user.CODIGO );
+            this.cambiarEstado( codigo, '5', this.user.CODIGO );
           }
         }
       ]
@@ -206,13 +232,13 @@ export class Tab2Page implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            this.cambiarEstado( codigo, '4', this.user.CODIGO );
+            this.cambiarEstado( codigo, '5', this.user.CODIGO );
           }
         },
         {
           text: 'Lista',
           handler: () => {
-            this.cambiarEstado( codigo, '1', this.user.CODIGO );
+            this.cambiarEstado( codigo, '1', " " );
           }
         }
       ]

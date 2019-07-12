@@ -52,29 +52,39 @@
           <ion-label class="nombre">{{mesa.NOMBRE | titlecase }}</ion-label>
           
           <ion-chip *ngSwitchCase="'1'" 
-                    color="success">
-              <ion-icon name="checkmark" color="success"></ion-icon>
-              <ion-label color="success">Libre</ion-label>
+                    color="dark">
+              <ion-icon name="checkmark" color="#dark"></ion-icon>
+              <ion-label color="dark">Libre</ion-label>
           </ion-chip>
 
-
-          <ion-chip *ngSwitchCase="'2'" 
-                     color="danger">
+          <ion-chip *ngSwitchCase="'3'" 
+                    color="danger">
             <ion-icon name="bed" color="danger"></ion-icon>
             <ion-label color="danger">Ocupada</ion-label>
           </ion-chip>
 
-          <ion-chip *ngSwitchCase="'3'" 
-                     color="warning">
-            <ion-icon name="search" color="warning"></ion-icon>
-            <ion-label color="warning">Inspeccionando</ion-label>
-          </ion-chip>
 
           <ion-chip *ngSwitchCase="'4'" 
                     color="primary">
-            <ion-icon name="water" color="primary"></ion-icon>
-            <ion-label color="primary">Aseo</ion-label>
+            <ion-icon name="bed" color="primary"></ion-icon>
+            <ion-label color="primary">Consumiendo</ion-label>
           </ion-chip>
+
+
+          <ion-chip *ngSwitchCase="'2'" 
+                     color="warning">
+            <ion-icon name="search" color="warning"></ion-icon>
+            <ion-label color="warning">Por inspeccionar</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngSwitchCase="'5'" 
+          color="success">
+          <ion-icon name="water" color="success"></ion-icon>
+          <ion-label color="success">Aseo</ion-label>
+        </ion-chip>
+
+
+        
 
 
          </ion-item>
