@@ -1,98 +1,100 @@
 <ion-header>
     <ion-toolbar color="dark">
-    
+
         <ion-title>Gotel - Piezas</ion-title>
         <ion-buttons slot="primary">
-          <ion-icon slot="end" name="arrow-round-back"></ion-icon>
-          <ion-button [routerLink]="['']" routerLinkActive="router-link-active"  >
-            Salir
-          </ion-button>
+            <ion-icon slot="end" name="arrow-round-back"></ion-icon>
+            <ion-button [routerLink]="['']" routerLinkActive="router-link-active">
+                Salir
+            </ion-button>
         </ion-buttons>
-      </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="animated fadeIn">
 
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Actualizando estado Piezas...">
-    </ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Actualizando estado Piezas...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-<ion-row class="animated fadeIn">
-  <ion-col size="12" class="encabezado">
-    <h1>Piezas</h1>
+    <ion-row class="animated fadeIn">
+        <ion-col size="12" class="encabezado">
+            <h1>Piezas</h1>
+        </ion-col>
 
-  </ion-col>
-  
-</ion-row>
+    </ion-row>
 
-<ion-row class="cabecera"> 
-  <ion-col size="2">
-    <h5>Pieza</h5>
-  </ion-col>
-  <ion-col size="5">
-    <h5>Último Responsable</h5>
-  </ion-col>
-  <ion-col size="3">
-    <h5>Estado</h5>
-  </ion-col>
-</ion-row>
-<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-
+    <ion-row class="cabecera">
+        <ion-col size="2">
+            <h5>Pieza</h5>
+        </ion-col>
+        <ion-col size="5">
+            <h5>Último Responsable</h5>
+        </ion-col>
+        <ion-col size="3">
+            <h5>Estado</h5>
+        </ion-col>
+    </ion-row>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+    <ion-row *ngIf="mesas.length < 1">
+        <ion-col class="medio">
+            <p>No hay Piezas por Inspeccionar o hacer Aseo</p>
+        </ion-col>
+    </ion-row>
     <ion-list class="animated fadeIn">
-        <ion-item *ngFor="let mesa of mesas" 
-                  (click)="abrirMesa(mesa.CODIGO, mesa.ESTADO, mesa.NUMERO)"
-                  [ngSwitch]=mesa.ESTADO>
-          <ion-label class="codigo">{{mesa.CODIGO}}</ion-label> | 
-          <ion-label class="nombre">{{mesa.NOMBRE | titlecase }}</ion-label>
-          
-          <ion-chip *ngSwitchCase="'1'" 
-                    color="dark">
-              <ion-icon name="checkmark" color="#dark"></ion-icon>
-              <ion-label color="dark">Libre</ion-label>
-          </ion-chip>
-
-          <ion-chip *ngSwitchCase="'3'" 
-                    color="danger">
-            <ion-icon name="bed" color="danger"></ion-icon>
-            <ion-label color="danger">Ocupada</ion-label>
-          </ion-chip>
 
 
-          <ion-chip *ngSwitchCase="'4'" 
-                    color="primary">
-            <ion-icon name="bed" color="primary"></ion-icon>
-            <ion-label color="primary">Consumiendo</ion-label>
-          </ion-chip>
+        <ion-item *ngFor="let mesa of mesas" (click)="abrirMesa(mesa.CODIGO, mesa.ESTADO, mesa.NUMERO)" [ngSwitch]=mesa.ESTADO>
+
+            <ion-label class="codigo">{{mesa.CODIGO}}</ion-label> |
+            <ion-label class="nombre">{{mesa.NOMBRE | titlecase }}</ion-label>
+
+            <ion-chip *ngSwitchCase="'1'" color="success">
+                <ion-icon name="checkmark" color="success"></ion-icon>
+                <ion-label color="success">Libre</ion-label>
+            </ion-chip>
+
+            <ion-chip *ngSwitchCase="'3'" color="tertiary">
+                <ion-icon name="hand" color="tertiary"></ion-icon>
+                <ion-label color="tertiary">Ocupada</ion-label>
+            </ion-chip>
 
 
-          <ion-chip *ngSwitchCase="'2'" 
-                     color="warning">
-            <ion-icon name="search" color="warning"></ion-icon>
-            <ion-label color="warning">Por inspeccionar</ion-label>
-          </ion-chip>
-
-          <ion-chip *ngSwitchCase="'5'" 
-          color="success">
-          <ion-icon name="water" color="success"></ion-icon>
-          <ion-label color="success">Aseo</ion-label>
-        </ion-chip>
+            <ion-chip *ngSwitchCase="'4'" color="danger">
+                <ion-icon name="bed" color="danger"></ion-icon>
+                <ion-label color="danger">Consumiendo</ion-label>
+            </ion-chip>
 
 
-        
+            <ion-chip *ngSwitchCase="'2'" color="warning">
+                <ion-icon name="search" color="warning"></ion-icon>
+                <ion-label color="warning">Por inspeccionar</ion-label>
+            </ion-chip>
+
+            <ion-chip *ngSwitchCase="'5'" color="primary">
+                <ion-icon name="water" color="primary"></ion-icon>
+                <ion-label color="primary">Pendiente Aseo</ion-label>
+            </ion-chip>
+            <ion-chip *ngSwitchCase="'6'" color="primary">
+                <ion-spinner name="bubbles" color="primary"></ion-spinner>
+                <ion-label color="primary">En Aseo</ion-label>
+            </ion-chip>
+
+            <ion-chip *ngSwitchCase="'7'" color="warning">
+                <ion-spinner name="bubbles" color="warning"></ion-spinner>
+                <ion-label color="warning">Inspeccionando</ion-label>
+            </ion-chip>
 
 
-         </ion-item>
-      </ion-list>
 
- 
+
+
+        </ion-item>
+    </ion-list>
+
+
 
 
 </ion-content>
-
-

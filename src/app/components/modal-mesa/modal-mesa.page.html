@@ -1,65 +1,60 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Detalle Actividad     
-      <ion-button  class="btn btn-outline-primary " (click)="dismiss()">X</ion-button>
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Detalle Actividad
+            <ion-button class="btn btn-outline-primary " (click)="dismiss()">X</ion-button>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  
-<ion-row>
-  <ion-col size="12" class="ion-text-center">
-    <h1>Pieza: {{mesa}}</h1>
-  </ion-col>
 
-  <ion-col size="12" class="ion-text-center">
-      <p>{{fecha}}</p>
-  </ion-col>
-  <ion-col size="12" class="ion-text-center">
-      <p>{{usuario}}</p>
-  </ion-col>    
-  <ion-col size="12" class="ion-text-center nomargin">
-      <ion-item [ngSwitch]=estado>
-          {{hora}}
-              <ion-chip *ngSwitchCase="'1'" 
-                        color="dark">
-                  <ion-icon name="checkmark" color="#dark"></ion-icon>
-                  <ion-label color="dark">Libre</ion-label>
-              </ion-chip>
+    <ion-row>
+        <ion-col size="12" class="ion-text-center">
+            <h1>Pieza: {{mesa}}</h1>
+        </ion-col>
 
-              <ion-chip *ngSwitchCase="'3'" 
-                        color="danger">
-                <ion-icon name="bed" color="danger"></ion-icon>
-                <ion-label color="danger">Ocupada</ion-label>
-              </ion-chip>
+        <ion-col size="12" class="ion-text-center">
+            <p>{{fecha}}</p>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+            <p>{{usuario}}</p>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center nomargin">
+            <ion-item [ngSwitch]=estado>
+                {{hora}}
+                <ion-chip *ngSwitchCase="'1'" color="success">
+                    <ion-icon name="checkmark" color="success"></ion-icon>
+                    <ion-label color="success">Libre</ion-label>
+                </ion-chip>
+
+                <ion-chip *ngSwitchCase="'3'" color="tertiary">
+                    <ion-icon name="hand" color="tertiary"></ion-icon>
+                    <ion-label color="tertiary">Ocupada</ion-label>
+                </ion-chip>
 
 
-              <ion-chip *ngSwitchCase="'4'" 
-                        color="primary">
-                <ion-icon name="bed" color="primary"></ion-icon>
-                <ion-label color="primary">Consumiendo</ion-label>
-              </ion-chip>
+                <ion-chip *ngSwitchCase="'4'" color="danger">
+                    <ion-icon name="bed" color="danger"></ion-icon>
+                    <ion-label color="danger">Consumiendo</ion-label>
+                </ion-chip>
 
 
-              <ion-chip *ngSwitchCase="'2'" 
-                        color="warning">
-                <ion-icon name="search" color="warning"></ion-icon>
-                <ion-label color="warning">Por inspeccionar</ion-label>
-              </ion-chip>
+                <ion-chip *ngSwitchCase="'2'" color="warning">
+                    <ion-icon name="search" color="warning"></ion-icon>
+                    <ion-label color="warning">Por inspeccionar</ion-label>
+                </ion-chip>
 
-              <ion-chip *ngSwitchCase="'5'" 
-                        color="success">
-                  <ion-icon name="water" color="success"></ion-icon>
-                  <ion-label color="success">Aseo</ion-label>
-              </ion-chip>
+                <ion-chip *ngSwitchCase="'5'" color="primary">
+                    <ion-icon name="water" color="primary"></ion-icon>
+                    <ion-label color="primary">Aseo</ion-label>
+                </ion-chip>
 
-  </ion-item>
-</ion-col>
-  
-  
- 
+            </ion-item>
+        </ion-col>
 
-</ion-row>
+
+
+
+    </ion-row>
 </ion-content>

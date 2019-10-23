@@ -29,7 +29,7 @@ export class Tab2Page implements OnInit {
 
     this.loading = true;
     this.fechas.formatoFechaUno( this.fechaSelect );
-   
+
   }
 
   ngOnInit() {
@@ -37,20 +37,60 @@ export class Tab2Page implements OnInit {
     this.memoria.traerDato( 'gotel_usuario' ).then( data => this.user = data );
   }
 
+  // traerMesas() {
+  //   console.log('tengo url tab2', this.conector.url);
+
+  //   this.conector.traeDatos('/mesasyusuarios')
+  //   .subscribe( ( val: any ) => {
+  //       console.log(val.datos);
+  //       let i; // arreglo el formato del código borrando los espacios libres
+  //       for ( i = 0; i < val.datos.length; i++) {
+  //         val.datos[i].ESTADO = val.datos[i].ESTADO.replace(/\s/g, '');
+  //         if ( val.datos[i].ESTADO === '2' || val.datos[i].ESTADO === '5' ) {
+  //             val.datos[i].CODIGO = val.datos[i].CODIGO.replace(/\s/g, '');
+  //             this.mesas.push(val.datos[i]);
+  //         }
+  //       }
+  //       console.log(this.mesas);
+  //       this.loading = false;
+  //   });
+  // }
+
   traerMesas() {
-    console.log("tengo url tab2",this.conector.url);
+    console.log('tengo url tab2', this.conector.url);
 
     this.conector.traeDatos('/mesasyusuarios')
     .subscribe( ( val: any ) => {
-        console.log(val.datos);
-        let i; // arreglo el formato del código borrando los espacios libres
-        for ( i = 0; i < val.datos.length; i++){
-            val.datos[i].ESTADO = val.datos[i].ESTADO.replace(/\s/g, '');
+        console.log('datos', val.datos);
+        let i;
+
+        for ( i = 0; i < val.datos.length; i++) {
+          // arreglo el formato del código borrando los espacios libres
+          val.datos[i].ESTADO = val.datos[i].ESTADO.replace(/\s/g, '');
+
+          // Traigo solo las mesas que necesitan ver las personas en la app
+          if (this.verificaMesa(val.datos[i].ESTADO) ) {
             val.datos[i].CODIGO = val.datos[i].CODIGO.replace(/\s/g, '');
+            this.mesas.push(val.datos[i]);
+          }
         }
-        this.mesas   = val.datos;
+
+        console.log('mesas', this.mesas);
         this.loading = false;
     });
+  }
+
+  verificaMesa(codigo) {
+    console.log('codigo', codigo);
+    if (codigo === "1") {
+      return false;
+    } else if (codigo === "3") {
+      return false;
+    } else if (codigo === "4") {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   abrirMesa( codigo: string, estado: string, numero: number ) {
@@ -64,8 +104,12 @@ export class Tab2Page implements OnInit {
       this.consumir( codigo );
     } else if ( estado === '2' ) {
       this.inspeccion( codigo );
+    } else if ( estado === '7' ) {
+      this.inspeccionar( codigo );
     } else if ( estado === '5' ) {
-      this.aseo( codigo ); 
+      this.aseo( codigo );
+    } else if ( estado === '6' ) {
+      this.hacerAseo( codigo );
     } else {
       console.log(codigo);
     }
@@ -109,6 +153,7 @@ export class Tab2Page implements OnInit {
   }
 
   doRefresh(event) {
+    this.mesas = [];
     this.traerMesas();
     setTimeout(() => {
       event.target.complete();
@@ -201,7 +246,7 @@ export class Tab2Page implements OnInit {
   async inspeccion( codigo: string ) {
     const alert = await this.alertController.create({
       header: 'Pieza' + ' ' + codigo,
-      message: '¿Cúal es el estado de la inspección?',
+      message: 'Tomar Pieza para inspección',
       buttons: [
         {
           text: 'Pendiente',
@@ -212,7 +257,31 @@ export class Tab2Page implements OnInit {
           }
         },
         {
-          text: 'Lista',
+          text: 'Tomar Pieza',
+          handler: () => {
+            this.cambiarEstado( codigo, '7', this.user.CODIGO );
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async inspeccionar( codigo: string ) {
+    const alert = await this.alertController.create({
+      header: 'Pieza' + ' ' + codigo,
+      message: 'Pieza inspeccionada?',
+      buttons: [
+        {
+          text: 'Pendiente',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.cambiarEstado( codigo, '7', this.user.CODIGO );
+          }
+        },
+        {
+          text: 'OK, Pieza inspeccionada',
           handler: () => {
             this.cambiarEstado( codigo, '5', this.user.CODIGO );
           }
@@ -225,7 +294,7 @@ export class Tab2Page implements OnInit {
   async aseo( codigo: string ) {
     const alert = await this.alertController.create({
       header: 'Pieza' + ' ' + codigo,
-      message: 'Pieza en Aseo',
+      message: 'Pieza para hacer aseo ',
       buttons: [
         {
           text: 'Pendiente',
@@ -233,6 +302,30 @@ export class Tab2Page implements OnInit {
           cssClass: 'secondary',
           handler: () => {
             this.cambiarEstado( codigo, '5', this.user.CODIGO );
+          }
+        },
+        {
+          text: 'Tomar pieza',
+          handler: () => {
+            this.cambiarEstado( codigo, '6', this.user.CODIGO );
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async hacerAseo( codigo: string ) {
+    const alert = await this.alertController.create({
+      header: 'Pieza' + ' ' + codigo,
+      message: 'Pieza en Aseo',
+      buttons: [
+        {
+          text: 'Pendiente',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.cambiarEstado( codigo, '6', this.user.CODIGO );
           }
         },
         {

@@ -46,7 +46,8 @@ export class ConectorService {
   }
 
   getActividadDia( fechaIni: string, fechaFin: string ) {
-    console.log('ConectorService.getActividadDia() ', this.url + ':' + this.puerto + '/actividadespost', fechaIni, fechaFin );
+    console.log(fechaIni);
+    console.log('ConectorService.getActividadDia() ', this.url + ':' + this.puerto + '/actividades', fechaIni, fechaFin );
     return this.http.get( this.url + ':' + this.puerto + `/actividades/${fechaIni}/${fechaFin}` );
   }
 

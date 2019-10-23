@@ -23,45 +23,52 @@ export class ConfigPage implements OnInit {
     this.memoria.leerDato('gotel_puerto').then( ( dato: any ) => this.puerto = dato );
   }
 
+
+
   conectar() {
     // se guardan los datos...
     this.memoria.guardarDato('gotel_url',    this.url   );
     this.memoria.guardarDato('gotel_puerto', this.puerto);
     // y se re-inicializa la conexion....
-    this.conector.inicializa();
+    this.conector.inicializa().then( () => this.probarConexion() );
 
     //
-    this.probarConexion();
+
   }
 
 
 
-  probarConexion(){
-    var usuarios:any = []
-    console.log("probarConex");
+  probarConexion() {
+    let usuarios: any = [];
+    console.log('probarConex');
     this.conector.inicializa().then( () =>  this.traerUsuarios() );
   }
 
-  
+
   traerUsuarios() {
     // traigo los usuarios y
     this.conector.traeDatos('/usuarios')
         .subscribe( ( val: any ) => {
-          console.log(val.datos)
-          this.Aviso();
+          console.log(val.datos);
+          console.log(val.datos.length );
+
+          if ( val.datos.length > 0) {
+            this.Aviso('Hay usuarios');
+          } else {
+            this.Aviso('conectado, no se encontraron usuarios');
+          }
         },
-        (err) => {console.log(err)
-          this.Error();
+        (err) => {console.log(err);
+                  this.Error();
         }
         );
   }
 
 
-  
-  
-  async Aviso() {
+
+  async Aviso(mensaje) {
     const toast = await this.toastCtrl.create({
-      message: 'Conexion re-inicializada...' + this.puerto ,
+      message: mensaje + ' ' + this.puerto ,
       duration: 2000,
       position: 'bottom'
     });
@@ -70,7 +77,7 @@ export class ConfigPage implements OnInit {
 
   async Error() {
     const toast = await this.toastCtrl.create({
-      message: 'Error en la conexión' + this.puerto ,
+      message: 'Error en la conexión ' + this.puerto ,
       duration: 2000,
       position: 'middle'
     });

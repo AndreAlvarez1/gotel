@@ -1,114 +1,94 @@
-
 <ion-header>
-  <ion-toolbar color="dark">
-  
-      <ion-title>Gotel | Actividades</ion-title>
-      <ion-buttons slot="primary">
-        <ion-icon slot="end" name="arrow-round-back"></ion-icon>
-        <ion-button [routerLink]="['']" routerLinkActive="router-link-active"  >
-          Salir
-        </ion-button>
-      </ion-buttons>
+    <ion-toolbar color="dark">
+
+        <ion-title>Gotel | Actividades</ion-title>
+        <ion-buttons slot="primary">
+            <ion-icon slot="end" name="arrow-round-back"></ion-icon>
+            <ion-button [routerLink]="['']" routerLinkActive="router-link-active">
+                Salir
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="Pull to refresh"
-          refreshingSpinner="circles"
-          refreshingText="Actualizando estado Piezas...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Actualizando estado Piezas...">
         </ion-refresher-content>
     </ion-refresher>
-    
+
     <ion-row class="animated fadeIn">
-      <ion-col size="12" class="encabezado">
-        <h1>Actividades</h1>
-      </ion-col>
+        <ion-col size="12" class="encabezado">
+            <h1>Actividades</h1>
+        </ion-col>
     </ion-row>
 
     <ion-row class="bg-white">
-      <ion-col size="12">
-        <ion-item>
-          <ion-label>Escoger Fecha</ion-label>
-          <ion-datetime displayFormat="DD MM YY" 
-                        placeholder="Hoy" 
-                        [(ngModel)]="fechaSelect"
-                        value="fechaSelect"
-                        (click)= "mostrar = true">
-          </ion-datetime>
-        </ion-item>
-        <ion-button *ngIf=" mostrar "
-                    expand="block" 
-                    fill="solid"
-                    class="animated fadeIn" 
-                    (click)="buscarFecha(fechaSelect)">
-                    Buscar historial
-        </ion-button>
-      </ion-col>
+        <ion-col size="12">
+            <ion-item>
+                <ion-label>Escoger Fecha</ion-label>
+                <ion-datetime displayFormat="DD MM YY" placeholder="Hoy" [(ngModel)]="fechaSelect" value="fechaSelect" (click)="mostrar = true">
+                </ion-datetime>
+            </ion-item>
+            <ion-button *ngIf=" mostrar " expand="block" fill="solid" class="animated fadeIn" (click)="buscarFecha(fechaSelect)">
+                Buscar historial
+            </ion-button>
+        </ion-col>
     </ion-row>
 
-    <ion-row class="cabecera"> 
+    <ion-row class="cabecera">
         <ion-col size="2">
-          <h5>Pieza</h5>
+            <h5>Pieza</h5>
         </ion-col>
         <ion-col size="4">
-          <h5>Hora</h5>
+            <h5>Hora</h5>
         </ion-col>
         <ion-col size="6">
             <h5>Estado</h5>
         </ion-col>
     </ion-row>
-  
+
     <ion-row>
-      <ion-col size="12">
-          <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-          <ion-list class="animated fadeIn">
-              <ion-item *ngFor="let actividad of actividades"
-                        (click)="presentModal(actividad)"
-                        [ngSwitch]=actividad.ESTADO> 
+        <ion-col size="12">
+            <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+            <ion-list class="animated fadeIn">
+                <ion-item *ngFor="let actividad of actividades" (click)="presentModal(actividad)" [ngSwitch]=actividad.ESTADO>
 
-                <ion-label class="codigo">{{actividad.MESA}}</ion-label> | 
-                <ion-label class="nombre">{{actividad.HORA_FIN}}</ion-label>
-                <!-- <ion-label class="nombre">{{actividad.FECHA}}</ion-label>-->
+                    <ion-label class="codigo">{{actividad.MESA}}</ion-label> |
+                    <ion-label class="nombre">{{actividad.HORA_FIN}}</ion-label>
+                    <!-- <ion-label class="nombre">{{actividad.FECHA}}</ion-label>-->
 
-      <ion-chip *ngSwitchCase="'1'" 
-                color="dark">
-          <ion-icon name="checkmark" color="#dark"></ion-icon>
-          <ion-label color="dark">Libre</ion-label>
-      </ion-chip>
+                    <ion-chip *ngSwitchCase="'1'" color="success">
+                        <ion-icon name="checkmark" color="success"></ion-icon>
+                        <ion-label color="success">Libre</ion-label>
+                    </ion-chip>
 
-      <ion-chip *ngSwitchCase="'3'" 
-                color="danger">
-        <ion-icon name="bed" color="danger"></ion-icon>
-        <ion-label color="danger">Ocupada</ion-label>
-      </ion-chip>
+                    <ion-chip *ngSwitchCase="'3'" color="tertiary">
+                        <ion-icon name="hand" color="tertiary"></ion-icon>
+                        <ion-label color="tertiary">Ocupada</ion-label>
+                    </ion-chip>
 
 
-      <ion-chip *ngSwitchCase="'4'" 
-                color="primary">
-        <ion-icon name="bed" color="primary"></ion-icon>
-        <ion-label color="primary">Consumiendo</ion-label>
-      </ion-chip>
+                    <ion-chip *ngSwitchCase="'4'" color="danger">
+                        <ion-icon name="bed" color="danger"></ion-icon>
+                        <ion-label color="danger">Consumiendo</ion-label>
+                    </ion-chip>
 
 
-      <ion-chip *ngSwitchCase="'2'" 
-                 color="warning">
-        <ion-icon name="search" color="warning"></ion-icon>
-        <ion-label color="warning">Por inspeccionar</ion-label>
-      </ion-chip>
+                    <ion-chip *ngSwitchCase="'2'" color="warning">
+                        <ion-icon name="search" color="warning"></ion-icon>
+                        <ion-label color="warning">Por inspeccionar</ion-label>
+                    </ion-chip>
 
-      <ion-chip *ngSwitchCase="'5'" 
-                color="success">
-          <ion-icon name="water" color="success"></ion-icon>
-          <ion-label color="success">Aseo</ion-label>
-      </ion-chip>
+                    <ion-chip *ngSwitchCase="'5'" color="primary">
+                        <ion-icon name="water" color="primary"></ion-icon>
+                        <ion-label color="primary">Aseo</ion-label>
+                    </ion-chip>
 
-              </ion-item>
-          </ion-list>    
-      </ion-col>
+                </ion-item>
+            </ion-list>
+        </ion-col>
     </ion-row>
 
 </ion-content>

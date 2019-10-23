@@ -24,7 +24,6 @@ export class Tab3Page implements OnInit {
                public modalController: ModalController) {
       this.formatoUno(this.fechaAhora);
       this.loading = true;
-      
   }
 
 
@@ -56,8 +55,6 @@ export class Tab3Page implements OnInit {
   formatoDos( fecha ) {
       this.fechas.formatoFechaDos( fecha );
   }
-
- 
 
   doRefresh(event) {
     setTimeout(() => {
