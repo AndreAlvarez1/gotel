@@ -41,10 +41,13 @@
         <ion-col size="2">
             <h5>Pieza</h5>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="2">
             <h5>Hora</h5>
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="4">
+            <h5>Persona</h5>
+        </ion-col>
+        <ion-col size="4">
             <h5>Estado</h5>
         </ion-col>
     </ion-row>
@@ -57,6 +60,7 @@
 
                     <ion-label class="codigo">{{actividad.MESA}}</ion-label> |
                     <ion-label class="nombre">{{actividad.HORA_FIN}}</ion-label>
+                    <ion-label class="nombre">{{actividad.NOMBRE | titlecase}}</ion-label>
                     <!-- <ion-label class="nombre">{{actividad.FECHA}}</ion-label>-->
 
                     <ion-chip *ngSwitchCase="'1'" color="success">
@@ -83,7 +87,16 @@
 
                     <ion-chip *ngSwitchCase="'5'" color="primary">
                         <ion-icon name="water" color="primary"></ion-icon>
-                        <ion-label color="primary">Aseo</ion-label>
+                        <ion-label color="primary">Pendiente Aseo</ion-label>
+                    </ion-chip>
+                    <ion-chip *ngSwitchCase="'6'" color="primary">
+                        <ion-spinner name="bubbles" color="primary"></ion-spinner>
+                        <ion-label color="primary">En Aseo</ion-label>
+                    </ion-chip>
+
+                    <ion-chip *ngSwitchCase="'7'" color="warning">
+                        <ion-spinner name="bubbles" color="warning"></ion-spinner>
+                        <ion-label color="warning">Inspeccionando</ion-label>
                     </ion-chip>
 
                 </ion-item>

@@ -28,7 +28,7 @@ export class Tab3Page implements OnInit {
 
 
   ngOnInit() {
-    this.conector.inicializa().then( () =>  this.traerActividades( this.fechas.fechaHoy, this.fechas.fechaHoy ) );
+    this.conector.inicializa().then( () =>  this.traerActividades( this.fechas.fechaHoyDos, this.fechas.fechaHoyDos ) );
   }
 
 
@@ -43,9 +43,8 @@ export class Tab3Page implements OnInit {
   }
 
   buscarFecha( fecha ) {
-      this.fechas.formatoFechaDos(fecha);
-      console.log(this.fechas.fechaModif);
-      this.traerActividades( this.fechas.fechaModif, this.fechas.fechaModif );
+    fecha = fecha.toString().slice(0, 10);
+    this.traerActividades( fecha, fecha );
   }
 
   formatoUno( fecha ) {

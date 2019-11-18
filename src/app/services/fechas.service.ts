@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class FechasService {
 
-  fechaHoy   = undefined;
-  fechaModif = undefined;
-  horaModif  = undefined;
+  fechaHoy    = undefined;
+  fechaHoyDos = undefined;
+  fechaModif  = undefined;
+  horaModif   = undefined;
 
   constructor() { }
 
@@ -38,8 +39,9 @@ export class FechasService {
       const anno = fecha.slice( 11, 15 );
       const hora = fecha.slice( 16, 24 );
       //
-      this.fechaHoy  = dia + '-' + mesNumero + '-' + anno;
-      this.horaModif = hora;
+      this.fechaHoy     = dia + '-' + mesNumero + '-' + anno;
+      this.fechaHoyDos  = anno + '-' + mesNumero + '-' + dia;
+      this.horaModif    = hora;
       //
       console.log('fecha Hoy:', this.fechaHoy );
       console.log('horaModif', this.horaModif );
@@ -55,7 +57,7 @@ export class FechasService {
       const anno = fecha.slice( 0, 4  );
       const hora = fecha.slice( 11, 19);
       //
-      this.fechaModif = dia + '-' + mes + '-' + anno;
+      this.fechaModif    = dia + '-' + mes + '-' + anno;
       this.horaModif  = hora;
       //
       console.log('fecha modificada:', this.fechaModif );

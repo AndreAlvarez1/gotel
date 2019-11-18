@@ -10,8 +10,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class ConfigPage implements OnInit {
 
-  url    = '';
-  puerto = '';
+  url    = 'http://motelelpaso.ddns.net';
+  puerto = 3060;
   public usuarios = [];
 
   constructor(  public memoria: MemoriaService,

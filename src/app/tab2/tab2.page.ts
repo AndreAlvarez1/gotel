@@ -37,31 +37,13 @@ export class Tab2Page implements OnInit {
     this.memoria.traerDato( 'gotel_usuario' ).then( data => this.user = data );
   }
 
-  // traerMesas() {
-  //   console.log('tengo url tab2', this.conector.url);
-
-  //   this.conector.traeDatos('/mesasyusuarios')
-  //   .subscribe( ( val: any ) => {
-  //       console.log(val.datos);
-  //       let i; // arreglo el formato del código borrando los espacios libres
-  //       for ( i = 0; i < val.datos.length; i++) {
-  //         val.datos[i].ESTADO = val.datos[i].ESTADO.replace(/\s/g, '');
-  //         if ( val.datos[i].ESTADO === '2' || val.datos[i].ESTADO === '5' ) {
-  //             val.datos[i].CODIGO = val.datos[i].CODIGO.replace(/\s/g, '');
-  //             this.mesas.push(val.datos[i]);
-  //         }
-  //       }
-  //       console.log(this.mesas);
-  //       this.loading = false;
-  //   });
-  // }
 
   traerMesas() {
-    console.log('tengo url tab2', this.conector.url);
+    // console.log('tengo url tab2', this.conector.url);
 
     this.conector.traeDatos('/mesasyusuarios')
     .subscribe( ( val: any ) => {
-        console.log('datos', val.datos);
+       // console.log('datos', val.datos);
         let i;
 
         for ( i = 0; i < val.datos.length; i++) {
@@ -75,13 +57,13 @@ export class Tab2Page implements OnInit {
           }
         }
 
-        console.log('mesas', this.mesas);
+       // console.log('mesas', this.mesas);
         this.loading = false;
     });
   }
 
   verificaMesa(codigo) {
-    console.log('codigo', codigo);
+   // console.log('codigo', codigo);
     if (codigo === "1") {
       return false;
     } else if (codigo === "3") {
@@ -120,12 +102,13 @@ export class Tab2Page implements OnInit {
     this.llenarActividad( codigo, estado, usuario );
     this.conector.putMesa (codigo, estado, usuario )
         .subscribe( ( data: any ) => {
-          console.log('actualizé', data );
+          console.log('actualisé', data );
           location.reload();
         });
   }
 
   llenarActividad( codigo: string, estado: number, numero: number ) {
+    console.log('llenando actividad');
     if ( this.memNumero === undefined ) {
         this.actividad.numero = 0;
     } else {
@@ -134,7 +117,7 @@ export class Tab2Page implements OnInit {
     this.actividad.mesa       = codigo;
     this.actividad.usuario    = this.user.CODIGO;
     this.actividad.cod_accion = estado;
-    this.actividad.fecha      = this.fechas.fechaHoy;
+    this.actividad.fecha      = this.fechas.fechaHoyDos;
     this.actividad.hora_ini   = this.fechas.horaModif;
     this.actividad.hora_fin   = this.fechas.horaModif;
     //
