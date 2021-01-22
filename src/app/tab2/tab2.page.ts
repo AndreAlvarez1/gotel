@@ -41,7 +41,7 @@ export class Tab2Page implements OnInit {
   traerMesas() {
     // console.log('tengo url tab2', this.conector.url);
 
-    this.conector.traeDatos('/mesasyusuarios')
+    this.conector.traeDatos('/gmesasyusuarios')
     .subscribe( ( val: any ) => {
        // console.log('datos', val.datos);
         let i;
@@ -57,7 +57,7 @@ export class Tab2Page implements OnInit {
           }
         }
 
-       // console.log('mesas', this.mesas);
+       console.log('mesas', this.mesas);
         this.loading = false;
     });
   }
@@ -100,6 +100,7 @@ export class Tab2Page implements OnInit {
   cambiarEstado( codigo: any, estado: any, usuario: any ) {
     console.log('cambia el estado a:', estado, 'con el usuario', usuario);
     this.llenarActividad( codigo, estado, usuario );
+    console.log('putmesa', usuario);
     this.conector.putMesa (codigo, estado, usuario )
         .subscribe( ( data: any ) => {
           console.log('actualisé', data );
@@ -129,6 +130,7 @@ export class Tab2Page implements OnInit {
   }
 
   insertarDato( actividad ) {
+    console.log('actividad', actividad);
     this.conector.putActividad( actividad )
         .subscribe( ( data: any ) => {
         console.log( 'Grabé', data );

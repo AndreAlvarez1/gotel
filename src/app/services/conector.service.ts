@@ -36,19 +36,19 @@ export class ConectorService {
                     estado:  estate,
                     usuario };
     console.log('ConectorService.putMesa() ', this.url + ':' + this.puerto + '/mesaput',  body );
-    return this.http.post( this.url + ':' + this.puerto + '/mesaput', body );
+    return this.http.post( this.url + ':' + this.puerto + '/gmesaput', body );
   }
 
   putActividad( actividad: ActividadModel ) {
     const body = { actividad };
-    console.log('ConectorService.putActividad() ', this.url + ':' + this.puerto + '/actividadespost',  body );
-    return this.http.post( this.url + ':' + this.puerto + '/actividadespost', body );
+    console.log('ConectorService.putActividad() ',  body );
+    return this.http.post( this.url + ':' + this.puerto + '/gactividadespost', body );
   }
 
   getActividadDia( fechaIni: string, fechaFin: string ) {
     console.log(fechaIni);
-    console.log('ConectorService.getActividadDia() ', this.url + ':' + this.puerto + '/actividades', fechaIni, fechaFin );
-    return this.http.get( this.url + ':' + this.puerto + `/actividades/${fechaIni}/${fechaFin}` );
+    console.log('ConectorService.getActividadDia() ', this.url + ':' + this.puerto + '/gactividades', fechaIni, fechaFin );
+    return this.http.get( this.url + ':' + this.puerto + `/gactividades/${fechaIni}/${fechaFin}` );
   }
 
 }
